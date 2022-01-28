@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2022-01-27T17:38:32 CET" name="Command line suite" finished-at="2022-01-27T17:38:34 CET" duration-ms="2140">
+    <groups>
+    </groups>
+    <test started-at="2022-01-27T17:38:32 CET" name="Command line test" finished-at="2022-01-27T17:38:34 CET" duration-ms="2140">
+      <class name="chapter01.hibernate.PersistenceTest">
+        <test-method is-config="true" signature="setup()[pri:0, instance:chapter01.hibernate.PersistenceTest@6adbc9d]" started-at="2022-01-27T17:38:32 CET" name="setup" finished-at="2022-01-27T17:38:33 CET" duration-ms="1786" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="readMessage()[pri:0, instance:chapter01.hibernate.PersistenceTest@6adbc9d]" started-at="2022-01-27T17:38:33 CET" name="readMessage" finished-at="2022-01-27T17:38:34 CET" duration-ms="333" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- readMessage -->
+      </class> <!-- chapter01.hibernate.PersistenceTest -->
+      <class name="chapter01.jdbc.PersistenceTest">
+        <test-method signature="readMessage()[pri:0, instance:chapter01.jdbc.PersistenceTest@1b7cc17c]" started-at="2022-01-27T17:38:34 CET" name="readMessage" finished-at="2022-01-27T17:38:34 CET" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- readMessage -->
+        <test-method is-config="true" signature="setup()[pri:0, instance:chapter01.jdbc.PersistenceTest@1b7cc17c]" started-at="2022-01-27T17:38:34 CET" name="setup" finished-at="2022-01-27T17:38:34 CET" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+      </class> <!-- chapter01.jdbc.PersistenceTest -->
+    </test> <!-- Command line test -->
+  </suite> <!-- Command line suite -->
+</testng-results>

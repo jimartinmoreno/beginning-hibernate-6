@@ -1,0 +1,8 @@
+chapter03\hibernate\Person.class
+chapter03\simple\Ranking.class
+chapter03\simple\Skill.class
+chapter03\application\HibernateRankingService.class
+chapter03\simple\Person.class
+chapter03\hibernate\Skill.class
+chapter03\hibernate\Ranking.class
+chapter03\application\RankingService.class

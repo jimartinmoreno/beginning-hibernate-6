@@ -1,0 +1,12 @@
+chapter07\lifecycle\LifecycleThing.class
+chapter07\lifecycle\UserAccount.class
+chapter07\unvalidated\UnvalidatedSimplePerson.class
+chapter07\lifecycle\UserAccountListener.class
+chapter07\lifecycle\FailingEntity.class
+chapter07\validated\Coordinate.class
+chapter07\validated\NoQuadrantIII.class
+chapter07\lifecycle\FailingEntity$FailureStatus.class
+chapter07\validated\Coordinate$CoordinateBuilder.class
+chapter07\validated\ValidatedPerson.class
+chapter07\validated\QuadrantIIIValidator.class
+chapter07\validated\ValidatedPerson$ValidatedPersonBuilder.class
