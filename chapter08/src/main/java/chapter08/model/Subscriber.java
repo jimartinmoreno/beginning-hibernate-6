@@ -10,9 +10,9 @@ import javax.persistence.Id;
 @Entity
 @Data
 public class Subscriber {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  Long id;
-  String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Long id;
+    String name;
 
 }

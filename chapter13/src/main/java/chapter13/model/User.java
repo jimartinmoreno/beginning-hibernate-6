@@ -14,30 +14,30 @@ import java.util.Set;
 @NoArgsConstructor
 @Audited
 public class User {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Integer id;
 
-  @Column(unique = true)
-  String name;
+    @Column(unique = true)
+    String name;
 
-  boolean active;
+    boolean active;
 
-  @ElementCollection
-  Set<String> groups;
+    @ElementCollection
+    Set<String> groups;
 
-  String description;
+    String description;
 
-  public User(String name, boolean active) {
-    this.name = name;
-    this.active = active;
-  }
-
-  public void addGroups(String... groupSet) {
-    if (getGroups() == null) {
-      setGroups(new HashSet<>());
+    public User(String name, boolean active) {
+        this.name = name;
+        this.active = active;
     }
-    getGroups().addAll(Arrays.asList(groupSet));
 
-  }
+    public void addGroups(String... groupSet) {
+        if (getGroups() == null) {
+            setGroups(new HashSet<>());
+        }
+        getGroups().addAll(Arrays.asList(groupSet));
+
+    }
 }

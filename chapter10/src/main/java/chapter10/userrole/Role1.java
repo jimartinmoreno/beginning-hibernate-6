@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 
 @Entity
 @Data
@@ -18,6 +17,6 @@ public class Role1 {
     String name;
 
     public Role1(String name) {
-        this.name=name;
+        this.name = name;
     }
 }

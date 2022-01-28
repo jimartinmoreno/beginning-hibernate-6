@@ -11,72 +11,72 @@ import java.net.http.HttpResponse;
 import static org.testng.Assert.assertEquals;
 
 public class AddCommentServletTest extends TestBase {
-  PostDTO post = null;
+    PostDTO post = null;
 
-  @BeforeMethod
-  void createUsersAndPosts()
-    throws IOException, InterruptedException {
-    AddUserService.addUser("jbo");
-    AddUserService.addUser("ts");
+    @BeforeMethod
+    void createUsersAndPosts()
+            throws IOException, InterruptedException {
+        AddUserService.addUser("jbo");
+        AddUserService.addUser("ts");
 
-    HttpResponse<String> postData =
-      AddPostService.addPost("raccoons", "raccoons are neat", "jbo");
+        HttpResponse<String> postData =
+                AddPostService.addPost("raccoons", "raccoons are neat", "jbo");
 
-    // this is how we get the post's id.
-    post = mapper.readValue(postData.body(), PostDTO.class);
-  }
-
-
-  @Test
-  void testAddComment() throws IOException, InterruptedException {
-    HttpResponse<String> response =
-      GetPostService.getPost(post.getId());
-    validatePost(response, 0);
-
-    response = AddCommentService.addComment(
-      post.getId(),
-      "what's the deal with raccoons, really",
-      "ts"
-    );
-    assertEquals(response.statusCode(), 200);
-    validatePost(response, 1);
-
-    response = AddCommentService.addComment(
-      post.getId(),
-      "they're the coolest",
-      "jbo"
-    );
-    assertEquals(response.statusCode(), 200);
-    validatePost(response, 2);
+        // this is how we get the post's id.
+        post = mapper.readValue(postData.body(), PostDTO.class);
+    }
 
 
-    response =
-      GetPostService.getPost(post.getId());
-    validatePost(response, 2);
-  }
+    @Test
+    void testAddComment() throws IOException, InterruptedException {
+        HttpResponse<String> response =
+                GetPostService.getPost(post.getId());
+        validatePost(response, 0);
 
-  @Test
-  void testInvalidGetPost()
-    throws IOException, InterruptedException {
+        response = AddCommentService.addComment(
+                post.getId(),
+                "what's the deal with raccoons, really",
+                "ts"
+        );
+        assertEquals(response.statusCode(), 200);
+        validatePost(response, 1);
 
-    HttpResponse<String> response =
-      GetPostService.getPost(post.getId() + 1);
+        response = AddCommentService.addComment(
+                post.getId(),
+                "they're the coolest",
+                "jbo"
+        );
+        assertEquals(response.statusCode(), 200);
+        validatePost(response, 2);
 
-    assertEquals(
-      response.statusCode(),
-      HttpServletResponse.SC_NOT_FOUND
-    );
-  }
 
-  void validatePost(
-    HttpResponse<String> response,
-    int commentSize
-  ) throws IOException {
-    assertEquals(response.statusCode(), 200);
+        response =
+                GetPostService.getPost(post.getId());
+        validatePost(response, 2);
+    }
 
-    PostDTO retrieved = mapper.readValue(response.body(), PostDTO.class);
+    @Test
+    void testInvalidGetPost()
+            throws IOException, InterruptedException {
 
-    assertEquals(retrieved.getComments().size(), commentSize);
-    assertEquals(retrieved.getTitle(), "raccoons");
-  }
+        HttpResponse<String> response =
+                GetPostService.getPost(post.getId() + 1);
+
+        assertEquals(
+                response.statusCode(),
+                HttpServletResponse.SC_NOT_FOUND
+        );
+    }
+
+    void validatePost(
+            HttpResponse<String> response,
+            int commentSize
+    ) throws IOException {
+        assertEquals(response.statusCode(), 200);
+
+        PostDTO retrieved = mapper.readValue(response.body(), PostDTO.class);
+
+        assertEquals(retrieved.getComments().size(), commentSize);
+        assertEquals(retrieved.getTitle(), "raccoons");
+    }
 }

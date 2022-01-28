@@ -8,10 +8,10 @@ import java.util.Set;
 
 @Entity
 public class EBook {
-  @Id
-  @GeneratedValue
-  Long id;
-  String name;
-  @ElementCollection
-  Set<Author> authors;
+    @Id
+    @GeneratedValue
+    Long id;
+    String name;
+    @ElementCollection
+    Set<Author> authors;
 }

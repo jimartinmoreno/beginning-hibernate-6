@@ -18,11 +18,11 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoQuadrantIII
 public class Coordinate {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  Integer id;
-  @NotNull
-  Integer x;
-  @NotNull
-  Integer y;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Integer id;
+    @NotNull
+    Integer x;
+    @NotNull
+    Integer y;
 }

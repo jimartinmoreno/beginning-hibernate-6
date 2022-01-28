@@ -11,21 +11,21 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
 public class TestNamedEntity extends TestBase {
-  @Test
-  public void testNamedEntity() {
-    Query<Supplier> supplierQuery=session.createQuery(
-            "from Supplier where name=:name",
-        Supplier.class);
-    supplierQuery.setParameter("name", "Supplier 2");
-    Supplier supplier= supplierQuery.getSingleResult();
-    assertNotNull(supplier);
+    @Test
+    public void testNamedEntity() {
+        Query<Supplier> supplierQuery = session.createQuery(
+                "from Supplier where name=:name",
+                Supplier.class);
+        supplierQuery.setParameter("name", "Supplier 2");
+        Supplier supplier = supplierQuery.getSingleResult();
+        assertNotNull(supplier);
 
-    Query<Product> query = session.createQuery(
-        "from Product where supplier = :supplier",
-        Product.class);
-    query.setParameter("supplier", supplier);
+        Query<Product> query = session.createQuery(
+                "from Product where supplier = :supplier",
+                Product.class);
+        query.setParameter("supplier", supplier);
 
-    List<Product> products = query.list();
-    assertEquals(products.size(), 3);
-  }
+        List<Product> products = query.list();
+        assertEquals(products.size(), 3);
+    }
 }

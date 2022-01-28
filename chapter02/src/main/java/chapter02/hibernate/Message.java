@@ -41,7 +41,7 @@ public class Message {
         if (!(o instanceof Message)) return false;
         Message message = (Message) o;
         return Objects.equals(getId(), message.getId())
-            && Objects.equals(getText(), message.getText());
+                && Objects.equals(getText(), message.getText());
     }
 
     @Override
@@ -52,7 +52,7 @@ public class Message {
     @Override
     public String toString() {
         return String.format("Message{id=%d,text='%s'}",
-            getId(),
-            getText());
+                getId(),
+                getText());
     }
 }

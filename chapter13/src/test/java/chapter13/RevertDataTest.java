@@ -4,34 +4,32 @@ import chapter13.model.User;
 import com.autumncode.hibernate.util.SessionUtil;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 public class RevertDataTest extends
-  FindLastActiveUserRevisionTest {
+        FindLastActiveUserRevisionTest {
 
-  @Test
-  public void revertUserData() {
-    SessionUtil.doWithSession((session) -> {
-      User auditUser = getUserWhenActive(session);
+    @Test
+    public void revertUserData() {
+        SessionUtil.doWithSession((session) -> {
+            User auditUser = getUserWhenActive(session);
 
-      assertEquals(auditUser.getDescription(), "1description");
+            assertEquals(auditUser.getDescription(), "1description");
 
-      // now we copy the audit data into the "current user."
-      User user = session.load(User.class, userId[0]);
+            // now we copy the audit data into the "current user."
+            User user = session.load(User.class, userId[0]);
 
-      assertFalse(user.isActive());
-      user.setActive(auditUser.isActive());
-      user.setDescription(auditUser.getDescription());
-      user.setGroups(auditUser.getGroups());
-    });
+            assertFalse(user.isActive());
+            user.setActive(auditUser.isActive());
+            user.setDescription(auditUser.getDescription());
+            user.setGroups(auditUser.getGroups());
+        });
 
-    // let's make sure the "current user" looks like what we expect
-    SessionUtil.doWithSession((session) -> {
-      User user = session.load(User.class, userId[0]);
-      assertTrue(user.isActive());
-      assertEquals(user.getDescription(), "1description");
-    });
-  }
+        // let's make sure the "current user" looks like what we expect
+        SessionUtil.doWithSession((session) -> {
+            User user = session.load(User.class, userId[0]);
+            assertTrue(user.isActive());
+            assertEquals(user.getDescription(), "1description");
+        });
+    }
 }

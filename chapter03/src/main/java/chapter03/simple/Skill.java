@@ -1,23 +1,22 @@
 package chapter03.simple;
 
 public class Skill {
-  String name;
 
-  public Skill() {
-  }
+    String name;
 
-  public String getName() {
-    return name;
-  }
+    public Skill() {
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  @Override
-  public String toString() {
-    return "Skill{" +
-        "name='" + name + '\'' +
-        '}';
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Skill{" + "name='" + name + '\'' + '}';
+    }
 }

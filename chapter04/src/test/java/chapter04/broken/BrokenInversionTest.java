@@ -5,45 +5,46 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
 
 public class BrokenInversionTest {
-  @Test()
-  public void testBrokenInversionCode() {
-    Long emailId;
-    Long messageId;
-    Email email;
-    Message message;
+    @Test()
+    public void testBrokenInversionCode() {
+        Long emailId;
+        Long messageId;
+        Email email;
+        Message message;
 
-    try (Session session = SessionUtil.getSession()) {
-      Transaction tx = session.beginTransaction();
+        try (Session session = SessionUtil.getSession()) {
+            Transaction tx = session.beginTransaction();
 
-      email = new Email("Broken");
-      message = new Message("Broken");
+            email = new Email("Broken");
+            message = new Message("Broken");
 
-      email.setMessage(message);
-      // message.setEmail(email);
+            email.setMessage(message);
+            // message.setEmail(email);
 
-      session.save(email);
-      session.save(message);
+            session.save(email);
+            session.save(message);
 
-      emailId = email.getId();
-      messageId = message.getId();
+            emailId = email.getId();
+            messageId = message.getId();
 
-      tx.commit();
+            tx.commit();
+        }
+
+        assertNotNull(email.getMessage());
+        assertNull(message.getEmail());
+
+        try (Session session = SessionUtil.getSession()) {
+            email = session.get(Email.class, emailId);
+            System.out.println(email);
+            message = session.get(Message.class, messageId);
+            System.out.println(message);
+        }
+
+        assertNotNull(email.getMessage());
+        assertNull(message.getEmail());
     }
-
-    assertNotNull(email.getMessage());
-    assertNull(message.getEmail());
-
-    try (Session session = SessionUtil.getSession()) {
-      email = session.get(Email.class, emailId);
-      System.out.println(email);
-      message = session.get(Message.class, messageId);
-      System.out.println(message);
-    }
-
-    assertNotNull(email.getMessage());
-    assertNull(message.getEmail());
-  }
 }

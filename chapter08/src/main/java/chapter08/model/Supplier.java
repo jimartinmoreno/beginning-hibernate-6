@@ -11,16 +11,16 @@ import java.io.Serializable;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Data
 public class Supplier implements Serializable {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  Integer id;
-  @Column(unique = true)
-  String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Integer id;
+    @Column(unique = true)
+    String name;
 
-  public Supplier(String name) {
-    this.name = name;
-  }
+    public Supplier(String name) {
+        this.name = name;
+    }
 
-  public Supplier() {
-  }
+    public Supplier() {
+    }
 }

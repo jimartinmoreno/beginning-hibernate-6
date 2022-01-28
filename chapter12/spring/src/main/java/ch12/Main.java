@@ -16,35 +16,35 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 public class Main {
-  @Bean
-  LocalSessionFactoryBean sessionFactory() {
-    LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-    sessionFactory.setConfigLocation(new ClassPathResource("/hibernate.cfg.xml"));
+    @Bean
+    LocalSessionFactoryBean sessionFactory() {
+        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+        sessionFactory.setConfigLocation(new ClassPathResource("/hibernate.cfg.xml"));
 
-    return sessionFactory;
-  }
+        return sessionFactory;
+    }
 
-  @Bean
-  public PlatformTransactionManager hibernateTransactionManager() {
-    HibernateTransactionManager transactionManager
-      = new HibernateTransactionManager();
-    transactionManager.setSessionFactory(sessionFactory().getObject());
-    return transactionManager;
-  }
+    @Bean
+    public PlatformTransactionManager hibernateTransactionManager() {
+        HibernateTransactionManager transactionManager
+                = new HibernateTransactionManager();
+        transactionManager.setSessionFactory(sessionFactory().getObject());
+        return transactionManager;
+    }
 
-  @Bean
-  PostManager postManager(SessionFactory factory) {
-    return new HibernatePostManager(factory);
-  }
+    @Bean
+    PostManager postManager(SessionFactory factory) {
+        return new HibernatePostManager(factory);
+    }
 
-  public static void main(String[] args) {
-    Logger logger = LoggerFactory.getLogger(Main.class);
-    ApplicationContext context =
-      new AnnotationConfigApplicationContext(Main.class);
+    public static void main(String[] args) {
+        Logger logger = LoggerFactory.getLogger(Main.class);
+        ApplicationContext context =
+                new AnnotationConfigApplicationContext(Main.class);
 
-    PostManager postManager = context.getBean(PostManager.class);
-    logger.info(postManager.toString());
-    postManager.savePost("foo", "bar");
-    logger.info(postManager.getPosts().toString());
-  }
+        PostManager postManager = context.getBean(PostManager.class);
+        logger.info(postManager.toString());
+        postManager.savePost("foo", "bar");
+        logger.info(postManager.getPosts().toString());
+    }
 }

@@ -31,109 +31,110 @@ import java.time.Duration;
 import java.util.Map;
 
 public class TestBase {
-  Undertow server;
-  TypeReference<Map<String, Object>> mapOfMaps =
-    new TypeReference<>() {
-    };
-  protected ObjectMapper mapper = new ObjectMapper()
-    .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-    .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-  {
-    mapper.registerModule(new JavaTimeModule());
-  }
+    Undertow server;
+    TypeReference<Map<String, Object>> mapOfMaps =
+            new TypeReference<>() {
+            };
+    protected ObjectMapper mapper = new ObjectMapper()
+            .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
-  @BeforeClass
-  void start() throws ServletException, IOException {
-    DeploymentInfo servletBuilder = Servlets.deployment()
-      .setClassLoader(TestBase.class.getClassLoader())
-      .setContextPath("/myapp")
-      .setDeploymentName("test.war");
-    populateServlets(servletBuilder);
+    {
+        mapper.registerModule(new JavaTimeModule());
+    }
 
-    DeploymentManager manager = Servlets
-      .defaultContainer()
-      .addDeployment(servletBuilder);
-    manager.deploy();
-    PathHandler path = Handlers.path(Handlers.redirect("/myapp"))
-      .addPrefixPath("/myapp", manager.start());
-    server = Undertow.builder()
-      .addHttpListener(8080, "localhost")
-      .setHandler(path)
-      .build();
-    server.start();
-  }
+    @BeforeClass
+    void start() throws ServletException, IOException {
+        DeploymentInfo servletBuilder = Servlets.deployment()
+                .setClassLoader(TestBase.class.getClassLoader())
+                .setContextPath("/myapp")
+                .setDeploymentName("test.war");
+        populateServlets(servletBuilder);
 
-  private void populateServlets(DeploymentInfo servletBuilder)
-    throws IOException {
-    Map<String, Object> servlets = mapper
-      .readValue(
-        this
-          .getClass()
-          .getResourceAsStream("/servlets.json"
-          ), mapOfMaps);
-    servlets.entrySet().forEach(entry -> {
-      Map<String, Object> data =
-        (Map<String, Object>) entry.getValue();
-      try {
-        var servlet = Servlets.servlet(
-          entry.getKey(),
-          (Class<? extends Servlet>) Class.forName(
-            data.get("class").toString()
-          ));
-        if (data.containsKey("initParams")) {
-          Map<String, Object> params =
-            (Map<String, Object>) data.get("initParams");
-          params.entrySet().forEach(param -> {
-            servlet.addInitParam(
-              param.getKey(),
-              param.getValue().toString()
-            );
-          });
-        }
-        servlet.addMapping(data.get("mapping").toString());
-        servletBuilder.addServlets(servlet);
-      } catch (ClassNotFoundException e) {
-        e.printStackTrace();
-      }
-    });
-  }
+        DeploymentManager manager = Servlets
+                .defaultContainer()
+                .addDeployment(servletBuilder);
+        manager.deploy();
+        PathHandler path = Handlers.path(Handlers.redirect("/myapp"))
+                .addPrefixPath("/myapp", manager.start());
+        server = Undertow.builder()
+                .addHttpListener(8080, "localhost")
+                .setHandler(path)
+                .build();
+        server.start();
+    }
 
-  @AfterClass
-  void stop() {
-    server.stop();
-  }
+    private void populateServlets(DeploymentInfo servletBuilder)
+            throws IOException {
+        Map<String, Object> servlets = mapper
+                .readValue(
+                        this
+                                .getClass()
+                                .getResourceAsStream("/servlets.json"
+                                ), mapOfMaps);
+        servlets.entrySet().forEach(entry -> {
+            Map<String, Object> data =
+                    (Map<String, Object>) entry.getValue();
+            try {
+                var servlet = Servlets.servlet(
+                        entry.getKey(),
+                        (Class<? extends Servlet>) Class.forName(
+                                data.get("class").toString()
+                        ));
+                if (data.containsKey("initParams")) {
+                    Map<String, Object> params =
+                            (Map<String, Object>) data.get("initParams");
+                    params.entrySet().forEach(param -> {
+                        servlet.addInitParam(
+                                param.getKey(),
+                                param.getValue().toString()
+                        );
+                    });
+                }
+                servlet.addMapping(data.get("mapping").toString());
+                servletBuilder.addServlets(servlet);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
-  @BeforeMethod
-  void clearAll() {
-    SessionUtil.doWithSession(session -> {
-      Query<Comment> commentQuery =
-        session.createQuery("from Comment", Comment.class);
-      for (var obj : commentQuery.list()) {
-        session.delete(obj);
-      }
+    @AfterClass
+    void stop() {
+        server.stop();
+    }
 
-      Query<Post> postQuery =
-        session.createQuery("from Post", Post.class);
-      for (Post post : postQuery.list()) {
-        session.delete(post);
-      }
-      Query<User> query =
-        session.createQuery("from User", User.class);
-      for (User user : query.list()) {
-        session.delete(user);
-      }
-    });
-  }
+    @BeforeMethod
+    void clearAll() {
+        SessionUtil.doWithSession(session -> {
+            Query<Comment> commentQuery =
+                    session.createQuery("from Comment", Comment.class);
+            for (var obj : commentQuery.list()) {
+                session.delete(obj);
+            }
 
-  protected HttpResponse<String> issueRequest(String path)
-    throws IOException, InterruptedException {
-    HttpClient client = HttpClient.newBuilder().build();
-    HttpRequest request = HttpRequest.newBuilder()
-      .uri(URI.create("http://localhost:8080/myapp/" + path))
-      .timeout(Duration.ofSeconds(3))
-      .build();
-    HttpResponse<String> response =
-      client.send(request, HttpResponse.BodyHandlers.ofString());
-    return response;
-  }
+            Query<Post> postQuery =
+                    session.createQuery("from Post", Post.class);
+            for (Post post : postQuery.list()) {
+                session.delete(post);
+            }
+            Query<User> query =
+                    session.createQuery("from User", User.class);
+            for (User user : query.list()) {
+                session.delete(user);
+            }
+        });
+    }
+
+    protected HttpResponse<String> issueRequest(String path)
+            throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newBuilder().build();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:8080/myapp/" + path))
+                .timeout(Duration.ofSeconds(3))
+                .build();
+        HttpResponse<String> response =
+                client.send(request, HttpResponse.BodyHandlers.ofString());
+        return response;
+    }
 }

@@ -1,6 +1,7 @@
 package chapter07.lifecycle;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -9,16 +10,16 @@ import javax.persistence.*;
 @Data
 @EntityListeners({UserAccountListener.class})
 public class UserAccount {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  Integer id;
-  String name;
-  @Transient
-  String password;
-  Integer salt;
-  Integer passwordHash;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Integer id;
+    String name;
+    @Transient
+    String password;
+    Integer salt;
+    Integer passwordHash;
 
-  public boolean validPassword(String newPass) {
-    return newPass.hashCode() * salt == getPasswordHash();
-  }
+    public boolean validPassword(String newPass) {
+        return newPass.hashCode() * salt == getPasswordHash();
+    }
 }

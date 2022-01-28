@@ -12,70 +12,70 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 
 public class AddPostServletTest
-  extends TestBase {
+        extends TestBase {
 
-  TypeReference<List<PostDTO>> listOfPosts =
-    new TypeReference<>() {
-    };
+    TypeReference<List<PostDTO>> listOfPosts =
+            new TypeReference<>() {
+            };
 
-  void addPost()
-    throws IOException, InterruptedException {
+    void addPost()
+            throws IOException, InterruptedException {
 
-    HttpResponse<String> response = AddPostService.addPost(
-      "test post",
-      "my test post",
-      "jbo"
-    );
-    System.out.println(response.body());
+        HttpResponse<String> response = AddPostService.addPost(
+                "test post",
+                "my test post",
+                "jbo"
+        );
+        System.out.println(response.body());
 
-    assertEquals(
-      response.statusCode(),
-      HttpServletResponse.SC_OK,
-      "invalid user"
-    );
+        assertEquals(
+                response.statusCode(),
+                HttpServletResponse.SC_OK,
+                "invalid user"
+        );
 
-    PostDTO data =
-      mapper.readValue(
-        response.body(),
-        PostDTO.class
-      );
+        PostDTO data =
+                mapper.readValue(
+                        response.body(),
+                        PostDTO.class
+                );
 
-    response = SimpleGetPostsService.getSimplePosts();
+        response = SimpleGetPostsService.getSimplePosts();
 
-    assertEquals(
-      response.statusCode(),
-      HttpServletResponse.SC_OK
-    );
+        assertEquals(
+                response.statusCode(),
+                HttpServletResponse.SC_OK
+        );
 
-    System.out.println(response.body());
+        System.out.println(response.body());
 
-    List<PostDTO> dtos=mapper.readValue(response.body(),
-      listOfPosts);
-    System.out.println(dtos);
-    assertEquals(dtos.size(), 1);
-  }
+        List<PostDTO> dtos = mapper.readValue(response.body(),
+                listOfPosts);
+        System.out.println(dtos);
+        assertEquals(dtos.size(), 1);
+    }
 
 
-  @Test(
-    expectedExceptions = AssertionError.class,
-    expectedExceptionsMessageRegExp = "invalid user.*"
-  )
-  void addPostNoUser() throws IOException, InterruptedException {
-    addPost();
-  }
+    @Test(
+            expectedExceptions = AssertionError.class,
+            expectedExceptionsMessageRegExp = "invalid user.*"
+    )
+    void addPostNoUser() throws IOException, InterruptedException {
+        addPost();
+    }
 
-  @Test
-  void addPostWithValidUser()
-    throws IOException, InterruptedException {
+    @Test
+    void addPostWithValidUser()
+            throws IOException, InterruptedException {
 
-    HttpResponse<String> response =
-      AddUserService.addUser("jbo");
+        HttpResponse<String> response =
+                AddUserService.addUser("jbo");
 
-    assertEquals(
-      response.statusCode(),
-      HttpServletResponse.SC_OK
-    );
+        assertEquals(
+                response.statusCode(),
+                HttpServletResponse.SC_OK
+        );
 
-    addPost();
-  }
+        addPost();
+    }
 }

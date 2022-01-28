@@ -6,53 +6,47 @@ import java.util.Objects;
 
 @Entity
 public class Person {
-  @Column(unique = true)
-  private String name;
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
 
-  public Person() {
-  }
+    @Column(unique = true)
+    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-  //end::boilerplate1[]
-  public Long getId() {
-    return id;
-  }
+    public Person() {
+    }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  @Override
-  public String toString() {
-    return "Person{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        '}';
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Person)) return false;
-    Person person = (Person) o;
-    return Objects.equals(getName(), person.getName()) && Objects.equals(getId(), person.getId());
-  }
+    @Override
+    public String toString() {
+        return "Person{" + "id=" + id + ", name='" + name + '\'' + '}';
+    }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(getName(), getId());
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        Person person = (Person) o;
+        return Objects.equals(getName(), person.getName()) && Objects.equals(getId(), person.getId());
+    }
 
-  //tag::boilerplate2[]
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getId());
+    }
 }
-//end::boilerplate2[]

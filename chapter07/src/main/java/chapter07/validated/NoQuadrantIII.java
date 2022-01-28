@@ -9,9 +9,9 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = {QuadrantIIIValidator.class})
 @Documented
 public @interface NoQuadrantIII {
-  String message() default "Failed quadrant III test";
+    String message() default "Failed quadrant III test";
 
-  Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-  Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 }

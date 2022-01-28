@@ -1,6 +1,9 @@
 package chapter07.lifecycle;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -10,34 +13,34 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode
 public class FailingEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  Integer id;
-  FailureStatus failureStatus = null;
-  String value;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Integer id;
+    FailureStatus failureStatus = null;
+    String value;
 
-  static enum FailureStatus {
-    NOFAILURE, PREPERSIST, POSTPERSIST, POSTLOAD
-  }
-
-  @PrePersist
-  void prePersist() {
-    if (failureStatus.equals(FailureStatus.PREPERSIST)) {
-      throw new RuntimeException("prepersist failure");
+    static enum FailureStatus {
+        NOFAILURE, PREPERSIST, POSTPERSIST, POSTLOAD
     }
-  }
 
-  @PostPersist
-  void postPersist() {
-    if (failureStatus.equals(FailureStatus.POSTPERSIST)) {
-      throw new RuntimeException("postpersist failure");
+    @PrePersist
+    void prePersist() {
+        if (failureStatus.equals(FailureStatus.PREPERSIST)) {
+            throw new RuntimeException("prepersist failure");
+        }
     }
-  }
 
-  @PostLoad
-  void postLoad() {
-    if (failureStatus.equals(FailureStatus.POSTLOAD)) {
-      throw new RuntimeException("postload failure");
+    @PostPersist
+    void postPersist() {
+        if (failureStatus.equals(FailureStatus.POSTPERSIST)) {
+            throw new RuntimeException("postpersist failure");
+        }
     }
-  }
+
+    @PostLoad
+    void postLoad() {
+        if (failureStatus.equals(FailureStatus.POSTLOAD)) {
+            throw new RuntimeException("postload failure");
+        }
+    }
 }

@@ -7,30 +7,30 @@ import org.hibernate.envers.AuditReaderFactory;
 import org.testng.annotations.Test;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertNotEquals;
+import static org.testng.Assert.assertTrue;
 
 public class ValidateRevisionSnapshotTest extends BaseTest {
-  @Test
-  public void testUserData() {
-    SessionUtil.doWithSession((session) -> {
-      AuditReader reader = AuditReaderFactory.get(session);
+    @Test
+    public void testUserData() {
+        SessionUtil.doWithSession((session) -> {
+            AuditReader reader = AuditReaderFactory.get(session);
 
-      List<Integer> revisions =
-        reader.getRevisions(User.class, userId[0])
-          .stream()
-          .map(Number::intValue)
-          .collect(Collectors.toList());
+            List<Integer> revisions =
+                    reader.getRevisions(User.class, userId[0])
+                            .stream()
+                            .map(Number::intValue)
+                            .collect(Collectors.toList());
 
-      int indexOfLastRevision = revisions.size() - 1;
-      int lastRevision = revisions.get(indexOfLastRevision);
-      User lastUser = findUserAtRevision(reader, lastRevision);
-      User prevUser = findUserAtRevision(reader, lastRevision - 1);
+            int indexOfLastRevision = revisions.size() - 1;
+            int lastRevision = revisions.get(indexOfLastRevision);
+            User lastUser = findUserAtRevision(reader, lastRevision);
+            User prevUser = findUserAtRevision(reader, lastRevision - 1);
 
-      assertTrue(lastRevision - 1 > revisions.get(indexOfLastRevision - 1));
-      assertNotEquals(lastUser.isActive(), prevUser.isActive());
-    });
-  }
+            assertTrue(lastRevision - 1 > revisions.get(indexOfLastRevision - 1));
+            assertNotEquals(lastUser.isActive(), prevUser.isActive());
+        });
+    }
 }

@@ -10,32 +10,32 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 public class Comment {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Integer id;
 
-  @Column(nullable = false)
-  @Lob
-  String content;
+    @Column(nullable = false)
+    @Lob
+    String content;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "post_id")
-  Post post;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    Post post;
 
-  @ManyToOne(optional = false, fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
-  User user;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    User user;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(nullable = false)
-  LocalDateTime createDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    LocalDateTime createDate;
 
-  @Override
-  public String toString() {
-    return "Comment{" +
-      "id=" + id +
-      ", content='" + content + '\'' +
-      ", createDate=" + createDate +
-      '}';
-  }
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", createDate=" + createDate +
+                '}';
+    }
 }

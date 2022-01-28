@@ -4,69 +4,67 @@ import javax.persistence.*;
 
 @Entity
 public class Ranking {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
-  @ManyToOne
-  private Person subject;
-  @ManyToOne
-  private Person observer;
-  @ManyToOne
-  private Skill skill;
-  @Column
-  private Integer ranking;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-  public Ranking() {
-  }
+    @ManyToOne
+    private Person subject;
 
-  public Long getId() {
-    return id;
-  }
+    @ManyToOne
+    private Person observer;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    @ManyToOne
+    private Skill skill;
 
-  public Person getSubject() {
-    return subject;
-  }
+    @Column
+    private Integer ranking;
 
-  public void setSubject(Person subject) {
-    this.subject = subject;
-  }
+    public Ranking() {
+    }
 
-  public Person getObserver() {
-    return observer;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  public void setObserver(Person observer) {
-    this.observer = observer;
-  }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-  public Skill getSkill() {
-    return skill;
-  }
+    public Person getSubject() {
+        return subject;
+    }
 
-  public void setSkill(Skill skill) {
-    this.skill = skill;
-  }
+    public void setSubject(Person subject) {
+        this.subject = subject;
+    }
 
-  public Integer getRanking() {
-    return ranking;
-  }
+    public Person getObserver() {
+        return observer;
+    }
 
-  public void setRanking(Integer ranking) {
-    this.ranking = ranking;
-  }
+    public void setObserver(Person observer) {
+        this.observer = observer;
+    }
 
-  @Override
-  public String toString() {
-    return "Ranking{" +
-        "id=" + id +
-        ", subject=" + subject +
-        ", observer=" + observer +
-        ", skill=" + skill +
-        ", ranking=" + ranking +
-        '}';
-  }
+    public Skill getSkill() {
+        return skill;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
+    }
+
+    public Integer getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(Integer ranking) {
+        this.ranking = ranking;
+    }
+
+    @Override
+    public String toString() {
+        return "Ranking{" + "id=" + id + ", subject=" + subject + ", observer=" + observer + ", skill=" + skill + ", ranking=" + ranking + '}';
+    }
 }

@@ -9,18 +9,18 @@ import java.util.List;
 @Path("/posts")
 @Produces(MediaType.APPLICATION_JSON)
 public class PostEndpoint {
-  @Inject
-  PostManager postManager;
+    @Inject
+    PostManager postManager;
 
-  @GET
-  @Transactional
-  public List<Post> getPosts() {
-    return postManager.getPosts();
-  }
+    @GET
+    @Transactional
+    public List<Post> getPosts() {
+        return postManager.getPosts();
+    }
 
-  @POST
-  @Transactional
-  public Post addPost(Post post) {
-    return postManager.savePost(post);
-  }
+    @POST
+    @Transactional
+    public Post addPost(Post post) {
+        return postManager.savePost(post);
+    }
 }

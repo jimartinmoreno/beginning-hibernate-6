@@ -11,30 +11,30 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class User {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Integer id;
 
-  @Column(unique = true, nullable = false)
-  String name;
-  boolean active;
+    @Column(unique = true, nullable = false)
+    String name;
+    boolean active;
 
-  @OneToMany(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
-  @OrderBy("createDate")
-  List<Post> posts = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @OrderBy("createDate")
+    List<Post> posts = new ArrayList<>();
 
-  public User(String name, boolean active) {
-    this.name = name;
-    this.active = active;
-  }
+    public User(String name, boolean active) {
+        this.name = name;
+        this.active = active;
+    }
 
-  @Override
-  public String toString() {
-    return "User{" +
-      "id=" + id +
-      ", name='" + name + '\'' +
-      ", active=" + active +
-      '}';
-  }
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", active=" + active +
+                '}';
+    }
 }

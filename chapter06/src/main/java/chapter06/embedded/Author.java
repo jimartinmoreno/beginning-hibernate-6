@@ -5,6 +5,6 @@ import java.time.LocalDate;
 
 @Embeddable
 public class Author {
-  String name;
-  LocalDate dateOfBirth;
+    String name;
+    LocalDate dateOfBirth;
 }

@@ -12,26 +12,26 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 
 public class FindLastActiveUserRevisionTest extends BaseTest {
-  @Test
-  public void findLastActiveUserRevision() {
-    SessionUtil.doWithSession((session) -> {
-      User user = getUserWhenActive(session);
-      System.out.println(user);
-      assertEquals(user.getDescription(), "1description");
-    });
-  }
+    @Test
+    public void findLastActiveUserRevision() {
+        SessionUtil.doWithSession((session) -> {
+            User user = getUserWhenActive(session);
+            System.out.println(user);
+            assertEquals(user.getDescription(), "1description");
+        });
+    }
 
-  protected User getUserWhenActive(Session session) {
-    AuditReader reader = AuditReaderFactory.get(session);
-    AuditQuery query = reader.createQuery()
-      .forRevisionsOfEntity(User.class, true, false)
-      .addOrder(AuditEntity.revisionNumber().desc())
-      .setMaxResults(1)
-      .add(AuditEntity.id().eq(userId[0]))
-      .add(AuditEntity.property("active").eq(true));
+    protected User getUserWhenActive(Session session) {
+        AuditReader reader = AuditReaderFactory.get(session);
+        AuditQuery query = reader.createQuery()
+                .forRevisionsOfEntity(User.class, true, false)
+                .addOrder(AuditEntity.revisionNumber().desc())
+                .setMaxResults(1)
+                .add(AuditEntity.id().eq(userId[0]))
+                .add(AuditEntity.property("active").eq(true));
 
-    User user = (User) query.getSingleResult();
-    return user;
-  }
+        User user = (User) query.getSingleResult();
+        return user;
+    }
 
 }

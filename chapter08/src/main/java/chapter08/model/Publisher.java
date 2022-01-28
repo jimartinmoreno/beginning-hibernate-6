@@ -10,8 +10,8 @@ import javax.persistence.Id;
 @Entity
 @Data
 public class Publisher {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  Long id;
-  String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Long id;
+    String name;
 }

@@ -9,124 +9,124 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class NaturalIdTest extends IdTestBase {
-  @Test
-  public void testSimpleNaturalId() {
-    Integer id = createSimpleEmployee("Sorhed", 5401).getId();
+    @Test
+    public void testSimpleNaturalId() {
+        Integer id = createSimpleEmployee("Sorhed", 5401).getId();
 
-    try (Session session = SessionUtil.getSession()) {
-      Transaction tx = session.beginTransaction();
+        try (Session session = SessionUtil.getSession()) {
+            Transaction tx = session.beginTransaction();
 
-      SimpleNaturalIdEmployee employee =
-          session
-              .byId(SimpleNaturalIdEmployee.class)
-              .load(id);
-      assertNotNull(employee);
-      SimpleNaturalIdEmployee badgedEmployee =
-          session
-              .bySimpleNaturalId(SimpleNaturalIdEmployee.class)
-              .load(5401);
-      assertEquals(badgedEmployee, employee);
+            SimpleNaturalIdEmployee employee =
+                    session
+                            .byId(SimpleNaturalIdEmployee.class)
+                            .load(id);
+            assertNotNull(employee);
+            SimpleNaturalIdEmployee badgedEmployee =
+                    session
+                            .bySimpleNaturalId(SimpleNaturalIdEmployee.class)
+                            .load(5401);
+            assertEquals(badgedEmployee, employee);
 
-      tx.commit();
+            tx.commit();
+        }
     }
-  }
 
-  @Test
-  public void testLoadByNaturalId() {
-    Employee initial = createEmployee("Arrowroot", 11, 291);
-    try (Session session = SessionUtil.getSession()) {
-      Transaction tx = session.beginTransaction();
+    @Test
+    public void testLoadByNaturalId() {
+        Employee initial = createEmployee("Arrowroot", 11, 291);
+        try (Session session = SessionUtil.getSession()) {
+            Transaction tx = session.beginTransaction();
 
-      Employee arrowroot = session
-          .byNaturalId(Employee.class)
-          .using("section", 11)
-          .using("department", 291)
-          .load();
-      assertNotNull(arrowroot);
-      assertEquals(initial, arrowroot);
+            Employee arrowroot = session
+                    .byNaturalId(Employee.class)
+                    .using("section", 11)
+                    .using("department", 291)
+                    .load();
+            assertNotNull(arrowroot);
+            assertEquals(initial, arrowroot);
 
-      tx.commit();
+            tx.commit();
+        }
     }
-  }
 
-  @Test
-  public void testGetByNaturalId() {
-    Employee initial = createEmployee("Eorwax", 11, 292);
-    try (Session session = SessionUtil.getSession()) {
-      Transaction tx = session.beginTransaction();
+    @Test
+    public void testGetByNaturalId() {
+        Employee initial = createEmployee("Eorwax", 11, 292);
+        try (Session session = SessionUtil.getSession()) {
+            Transaction tx = session.beginTransaction();
 
-      Employee eorwax = session
-          .byNaturalId(Employee.class)
-          .using("section", 11)
-          .using("department", 292)
-          .getReference();
-      System.out.println(initial.equals(eorwax));
-      assertEquals(initial, eorwax);
+            Employee eorwax = session
+                    .byNaturalId(Employee.class)
+                    .using("section", 11)
+                    .using("department", 292)
+                    .getReference();
+            System.out.println(initial.equals(eorwax));
+            assertEquals(initial, eorwax);
 
-      tx.commit();
+            tx.commit();
+        }
     }
-  }
 
-  @Test
-  public void testLoadById() {
-    Integer id = createEmployee("Legolam", 10, 289).getId();
-    try (Session session = SessionUtil.getSession()) {
-      Transaction tx = session.beginTransaction();
+    @Test
+    public void testLoadById() {
+        Integer id = createEmployee("Legolam", 10, 289).getId();
+        try (Session session = SessionUtil.getSession()) {
+            Transaction tx = session.beginTransaction();
 
-      Employee boggit = session.byId(Employee.class).load(id);
-      assertNotNull(boggit);
+            Employee boggit = session.byId(Employee.class).load(id);
+            assertNotNull(boggit);
 
          /*
         load successful, let's delete it for the second half of the test
         */
-      session.delete(boggit);
+            session.delete(boggit);
 
-      tx.commit();
+            tx.commit();
+        }
+
+        try (Session session = SessionUtil.getSession()) {
+            Transaction tx = session.beginTransaction();
+
+            Employee boggit = session.byId(Employee.class).load(id);
+            assertNull(boggit);
+
+            tx.commit();
+        }
     }
 
-    try (Session session = SessionUtil.getSession()) {
-      Transaction tx = session.beginTransaction();
+    @Test
+    public void testGetById() {
+        Integer id = createEmployee("Eorache", 10, 290).getId();
+        try (Session session = SessionUtil.getSession()) {
+            Transaction tx = session.beginTransaction();
 
-      Employee boggit = session.byId(Employee.class).load(id);
-      assertNull(boggit);
+            Employee boggit = session.byId(Employee.class)
+                    .getReference(id);
+            assertNotNull(boggit);
 
-      tx.commit();
+            /*
+             * load successful, let's delete it for the second half of the test
+             */
+            session.delete(boggit);
+
+            tx.commit();
+        }
+
+        try (Session session = SessionUtil.getSession()) {
+            Transaction tx = session.beginTransaction();
+
+            try {
+                Employee boggit = session.byId(Employee.class)
+                        .getReference(id);
+
+                // trigger object initialization - which, with a nonexistent object,
+                // will blow up.
+                boggit.getDepartment();
+                fail("Should have had an exception thrown!");
+            } catch (ObjectNotFoundException ignored) {
+            }
+
+            tx.commit();
+        }
     }
-  }
-
-  @Test
-  public void testGetById() {
-    Integer id = createEmployee("Eorache", 10, 290).getId();
-    try (Session session = SessionUtil.getSession()) {
-      Transaction tx = session.beginTransaction();
-
-      Employee boggit = session.byId(Employee.class)
-          .getReference(id);
-      assertNotNull(boggit);
-
-      /*
-       * load successful, let's delete it for the second half of the test
-       */
-      session.delete(boggit);
-
-      tx.commit();
-    }
-
-    try (Session session = SessionUtil.getSession()) {
-      Transaction tx = session.beginTransaction();
-
-      try {
-        Employee boggit = session.byId(Employee.class)
-            .getReference(id);
-
-        // trigger object initialization - which, with a nonexistent object,
-        // will blow up.
-        boggit.getDepartment();
-        fail("Should have had an exception thrown!");
-      } catch (ObjectNotFoundException ignored) {
-      }
-
-      tx.commit();
-    }
-  }
 }

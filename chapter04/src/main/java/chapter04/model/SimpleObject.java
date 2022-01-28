@@ -5,79 +5,79 @@ import javax.persistence.*;
 
 @Entity
 public class SimpleObject {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  Long id;
-  @Column
-  String key;
-  @Column
-  Long value;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Long id;
+    @Column
+    String key;
+    @Column
+    Long value;
 
-  public SimpleObject() {
-  }
+    public SimpleObject() {
+    }
 
-  //end::preamble[]
-  public Long getId() {
-    return id;
-  }
+    //end::preamble[]
+    public Long getId() {
+        return id;
+    }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-  public String getKey() {
-    return key;
-  }
+    public String getKey() {
+        return key;
+    }
 
-  public void setKey(String key) {
-    this.key = key;
-  }
+    public void setKey(String key) {
+        this.key = key;
+    }
 
-  public Long getValue() {
-    return value;
-  }
+    public Long getValue() {
+        return value;
+    }
 
-  public void setValue(Long value) {
-    this.value = value;
-  }
+    public void setValue(Long value) {
+        this.value = value;
+    }
 
-  @Override
-  public String toString() {
-    return "SimpleObject{" +
-        "id=" + id +
-        ", key='" + key + '\'' +
-        ", value=" + value +
-        '}';
-  }
+    @Override
+    public String toString() {
+        return "SimpleObject{" +
+                "id=" + id +
+                ", key='" + key + '\'' +
+                ", value=" + value +
+                '}';
+    }
 
-  //tag::postlude[]
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof SimpleObject)) return false;
+    //tag::postlude[]
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SimpleObject)) return false;
 
-    SimpleObject that = (SimpleObject) o;
+        SimpleObject that = (SimpleObject) o;
 
-    // we prefer the method versions of accessors, because of Hibernate's proxies.
-    if (getId() != null
-        ? !getId().equals(that.getId())
-        : that.getId() != null)
-      return false;
-    if (getKey() != null
-        ? !getKey().equals(that.getKey())
-        : that.getKey() != null)
-      return false;
-    return getValue() != null
-        ? getValue().equals(that.getValue())
-        : that.getValue() == null;
-  }
+        // we prefer the method versions of accessors, because of Hibernate's proxies.
+        if (getId() != null
+                ? !getId().equals(that.getId())
+                : that.getId() != null)
+            return false;
+        if (getKey() != null
+                ? !getKey().equals(that.getKey())
+                : that.getKey() != null)
+            return false;
+        return getValue() != null
+                ? getValue().equals(that.getValue())
+                : that.getValue() == null;
+    }
 
-  @Override
-  public int hashCode() {
-    int result = getId() != null ? getId().hashCode() : 0;
-    result = 31 * result + (getKey() != null ? getKey().hashCode() : 0);
-    result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
-    return result;
-  }
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getKey() != null ? getKey().hashCode() : 0);
+        result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
+        return result;
+    }
 }
 //end::postlude[]

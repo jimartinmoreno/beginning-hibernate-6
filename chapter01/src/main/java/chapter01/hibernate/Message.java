@@ -5,54 +5,56 @@ import java.util.Objects;
 
 @Entity
 public class Message {
-  Long id;
-  String text;
 
-  public Message() {
-  }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
 
-  public Message(String text) {
-    this();
-    setText(text);
-  }
+    @Column(nullable = false)
+    String text;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  public Long getId() {
-    return id;
-  }
+    public Message() {
+    }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public Message(String text) {
+        this();
+        setText(text);
+    }
 
-  @Column(nullable = false)
-  public String getText() {
-    return text;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  public void setText(String text) {
-    this.text = text;
-  }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Message)) return false;
-    Message message = (Message) o;
-    return Objects.equals(getId(), message.getId())
-        && Objects.equals(getText(), message.getText());
-  }
+    public String getText() {
+        return text;
+    }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(getId(), getText());
-  }
+    public void setText(String text) {
+        this.text = text;
+    }
 
-  @Override
-  public String toString() {
-    return String.format("Message{id=%d,text='%s'}",
-        getId(),
-        getText());
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Message)) return false;
+        Message message = (Message) o;
+        return Objects.equals(getId(), message.getId())
+                && Objects.equals(getText(), message.getText());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getText());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Message{id=%d,text='%s'}",
+                getId(),
+                getText());
+    }
 }

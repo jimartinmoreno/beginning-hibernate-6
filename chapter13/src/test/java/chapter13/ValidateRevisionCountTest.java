@@ -8,20 +8,20 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 public class ValidateRevisionCountTest extends BaseTest {
-  @Test
-  public void validateRevisionCount() {
-    SessionUtil.doWithSession((session) -> {
-      AuditReader reader = AuditReaderFactory.get(session);
+    @Test
+    public void validateRevisionCount() {
+        SessionUtil.doWithSession((session) -> {
+            AuditReader reader = AuditReaderFactory.get(session);
 
-      List<Number> revisions =
-        reader.getRevisions(User.class, userId[0]);
+            List<Number> revisions =
+                    reader.getRevisions(User.class, userId[0]);
 
-      assertEquals(revisions.size(), 3);
-    });
-  }
+            assertEquals(revisions.size(), 3);
+        });
+    }
 
 }
 

@@ -10,53 +10,53 @@ import java.util.BitSet;
 @Entity
 @Data
 public class LifecycleThing {
-  static Logger logger = LoggerFactory.getLogger(LifecycleThing.class);
-  static BitSet lifecycleCalls = new BitSet();
+    static Logger logger = LoggerFactory.getLogger(LifecycleThing.class);
+    static BitSet lifecycleCalls = new BitSet();
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  Integer id;
-  @Column
-  String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Integer id;
+    @Column
+    String name;
 
-  @PostLoad
-  public void postLoad() {
-    log("postLoad", 0);
-  }
+    @PostLoad
+    public void postLoad() {
+        log("postLoad", 0);
+    }
 
-  @PrePersist
-  public void prePersist() {
-    log("prePersist", 1);
-  }
+    @PrePersist
+    public void prePersist() {
+        log("prePersist", 1);
+    }
 
-  @PostPersist
-  public void postPersist() {
-    log("postPersist", 2);
-  }
+    @PostPersist
+    public void postPersist() {
+        log("postPersist", 2);
+    }
 
-  @PreUpdate
-  public void preUpdate() {
-    log("preUpdate", 3);
-  }
+    @PreUpdate
+    public void preUpdate() {
+        log("preUpdate", 3);
+    }
 
-  @PostUpdate
-  public void postUpdate() {
-    log("postUpdate", 4);
-  }
+    @PostUpdate
+    public void postUpdate() {
+        log("postUpdate", 4);
+    }
 
-  @PreRemove
-  public void preRemove() {
-    log("preRemove", 5);
-  }
+    @PreRemove
+    public void preRemove() {
+        log("preRemove", 5);
+    }
 
-  @PostRemove
-  public void postRemove() {
-    log("postRemove", 6);
-  }
+    @PostRemove
+    public void postRemove() {
+        log("postRemove", 6);
+    }
 
-  private void log(String method, int index) {
-    lifecycleCalls.set(index, true);
-    logger.info("{}: {} {}", method,
-        this.getClass().getSimpleName(), this);
-  }
+    private void log(String method, int index) {
+        lifecycleCalls.set(index, true);
+        logger.info("{}: {} {}", method,
+                this.getClass().getSimpleName(), this);
+    }
 }

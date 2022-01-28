@@ -6,27 +6,27 @@ import javax.persistence.Id;
 
 @Entity
 public class CPKBook {
-  @Id
-  ISBN id;
-  @Column
-  String name;
+    @Id
+    ISBN id;
+    @Column
+    String name;
 
-  public CPKBook() {
-  }
+    public CPKBook() {
+    }
 
-  public ISBN getId() {
-    return id;
-  }
+    public ISBN getId() {
+        return id;
+    }
 
-  public void setId(ISBN id) {
-    this.id = id;
-  }
+    public void setId(ISBN id) {
+        this.id = id;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setName(String title) {
-    this.name = title;
-  }
+    public void setName(String title) {
+        this.name = title;
+    }
 }

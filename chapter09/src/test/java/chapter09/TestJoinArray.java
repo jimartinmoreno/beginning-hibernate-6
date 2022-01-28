@@ -11,16 +11,16 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 
 public class TestJoinArray extends TestBase {
-  @Test
-  public void testJoinArray() {
-    Query<Object[]> query = session.getNamedQuery(
-        "product.findProductAndSupplier"
-    );
-    List<Object[]> suppliers = query.list();
-    for (Object[] o : suppliers) {
-      Assert.assertTrue(o[0] instanceof Product);
-      Assert.assertTrue(o[1] instanceof Supplier);
+    @Test
+    public void testJoinArray() {
+        Query<Object[]> query = session.getNamedQuery(
+                "product.findProductAndSupplier"
+        );
+        List<Object[]> suppliers = query.list();
+        for (Object[] o : suppliers) {
+            Assert.assertTrue(o[0] instanceof Product);
+            Assert.assertTrue(o[1] instanceof Supplier);
+        }
+        assertEquals(suppliers.size(), 5);
     }
-    assertEquals(suppliers.size(), 5);
-  }
 }

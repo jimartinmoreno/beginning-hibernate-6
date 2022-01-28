@@ -7,10 +7,10 @@ import java.util.List;
 
 @Data
 public class PostDTO {
-  int id;
-  String user;
-  String title;
-  String content;
-  List<CommentDTO> comments=List.of();
-  LocalDateTime createdDate;
+    int id;
+    String user;
+    String title;
+    String content;
+    List<CommentDTO> comments = List.of();
+    LocalDateTime createdDate;
 }

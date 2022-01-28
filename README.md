@@ -1,6 +1,7 @@
 # Apress Source Code
 
-This repository accompanies [*Beginning Hibernate 6*](https://www.apress.com/9781484273364) by Joseph B. Ottinger, Jeff Linwood, and Dave Minter (Apress, 2022).
+This repository accompanies [*Beginning Hibernate 6*](https://www.apress.com/9781484273364) by Joseph B. Ottinger, Jeff
+Linwood, and Dave Minter (Apress, 2022).
 
 [comment]: #cover
 ![Cover image](9781484273364.jpg)
