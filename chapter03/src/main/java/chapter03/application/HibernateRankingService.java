@@ -27,8 +27,8 @@ public class HibernateRankingService implements RankingService {
     }
 
     private int getRankingFor(Session session, String subject, String skill) {
-        Query<Ranking> query = session.createQuery("from Ranking r " + "where r.subject.name=:name " +
-                "and r.skill.name=:skill", Ranking.class);
+        Query<Ranking> query = session.createQuery("from Ranking r where r.subject.name=:name and r.skill.name=:skill",
+                Ranking.class);
         query.setParameter("name", subject);
         query.setParameter("skill", skill);
 
@@ -124,9 +124,7 @@ public class HibernateRankingService implements RankingService {
         }
         return results;
     }
-    //end::findRankingsFor[]
 
-    //tag::findBestPersonFor[]
     @Override
     public Person findBestPersonFor(String skill) {
         Person person = null;
@@ -148,7 +146,7 @@ public class HibernateRankingService implements RankingService {
         query.setMaxResults(1);
 
         List<Object[]> result = query.list();
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             // we want the first (and only) row
             Object[] row = result.get(0);
             String personName = row[0].toString();
@@ -165,22 +163,19 @@ public class HibernateRankingService implements RankingService {
         query.setParameter("subject", subject);
         query.setParameter("observer", observer);
         query.setParameter("skill", skill);
-        Ranking ranking = query.uniqueResult();
-        return ranking;
+        return query.uniqueResult();
     }
 
     private Person findPerson(Session session, String name) {
         Query<Person> query = session.createQuery("from Person p where p.name=:name", Person.class);
         query.setParameter("name", name);
-        Person person = query.uniqueResult();
-        return person;
+        return query.uniqueResult();
     }
 
     private Skill findSkill(Session session, String name) {
         Query<Skill> query = session.createQuery("from Skill s where s.name=:name", Skill.class);
         query.setParameter("name", name);
-        Skill skill = query.uniqueResult();
-        return skill;
+        return query.uniqueResult();
     }
 
     private Skill saveSkill(Session session, String skillName) {

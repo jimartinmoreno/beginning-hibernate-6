@@ -1,5 +1,7 @@
 package chapter03.hibernate;
 
+import chapter03.application.HibernateRankingService;
+import chapter03.application.RankingService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -45,7 +47,7 @@ public class RankingTest {
             ranking.setObserver(observer);
             ranking.setSkill(skill);
             ranking.setRanking(8);
-            session.save(ranking);
+            session.persist(ranking);
 
             tx.commit();
         }
@@ -83,19 +85,23 @@ public class RankingTest {
         populateRankingData();
         try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
-            Query<Ranking> query = session.createQuery("from Ranking r where r.subject.name=:subject and" +
-                    " r.observer.name=:observer and r.skill.name=:skill", Ranking.class);
+            //            Query<Ranking> query = session.createQuery("from Ranking r where r.subject.name=:subject and" +
+            //                    " r.observer.name=:observer and r.skill.name=:skill", Ranking.class);
+            //
+            //            query.setParameter("subject", "J. C. Smell");
+            //            query.setParameter("observer", "Gene Showrama");
+            //            query.setParameter("skill", "Java");
+            //
+            //            Ranking ranking = query.uniqueResult();
 
-            query.setParameter("subject", "J. C. Smell");
-            query.setParameter("observer", "Gene Showrama");
-            query.setParameter("skill", "Java");
+            Ranking ranking = findRanking(session, "J. C. Smell", "Gene Showrama", "Java");
 
-            Ranking ranking = query.uniqueResult();
-
+            System.out.println("ranking = " + ranking);
             assertNotNull(ranking, "Could not find matching ranking");
             ranking.setRanking(9);
 
             tx.commit();
+            System.out.println("ranking = " + ranking);
         }
         assertEquals(getAverage("J. C. Smell", "Java"), 8);
     }
@@ -105,6 +111,7 @@ public class RankingTest {
         populateRankingData();
         try (Session session = factory.openSession()) {
             Transaction tx = session.beginTransaction();
+
             Ranking ranking = findRanking(session, "J. C. Smell", "Gene Showrama", "Java");
             assertNotNull(ranking, "Ranking not found");
             session.delete(ranking);
@@ -151,7 +158,7 @@ public class RankingTest {
         ranking.setObserver(observer);
         ranking.setSkill(skill);
         ranking.setRanking(rank);
-        session.save(ranking);
+        session.persist(ranking);
     }
 
     private Person findPerson(Session session, String name) {
@@ -171,7 +178,7 @@ public class RankingTest {
         if (skill == null) {
             skill = new Skill();
             skill.setName(skillName);
-            session.save(skill);
+            session.persist(skill);
         }
         return skill;
     }
@@ -181,7 +188,7 @@ public class RankingTest {
         if (person == null) {
             person = new Person();
             person.setName(name);
-            session.save(person);
+            session.persist(person);
         }
         return person;
     }

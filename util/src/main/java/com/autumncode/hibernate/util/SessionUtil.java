@@ -37,13 +37,8 @@ public class SessionUtil {
 
     private void initialize() {
         logger.info("reloading factory");
-        StandardServiceRegistry registry =
-                new StandardServiceRegistryBuilder()
-                        .configure()
-                        .build();
-        factory = new MetadataSources(registry)
-                .buildMetadata()
-                .buildSessionFactory();
+        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+        factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
     }
     //end::preamble[]
 
@@ -52,8 +47,7 @@ public class SessionUtil {
             Transaction tx = session.beginTransaction();
 
             command.accept(session);
-            if (tx.isActive() &&
-                    !tx.getRollbackOnly()) {
+            if (tx.isActive() && !tx.getRollbackOnly()) {
                 tx.commit();
             } else {
                 tx.rollback();
@@ -72,8 +66,7 @@ public class SessionUtil {
                 throw new RuntimeException(e);
             } finally {
                 if (tx != null) {
-                    if (tx.isActive() &&
-                            !tx.getRollbackOnly()) {
+                    if (tx.isActive() && !tx.getRollbackOnly()) {
                         tx.commit();
                     } else {
                         tx.rollback();

@@ -2,6 +2,8 @@
 package chapter03.application;
 
 import chapter03.hibernate.Person;
+import chapter03.hibernate.Ranking;
+import org.hibernate.Session;
 
 import java.util.Map;
 
@@ -17,4 +19,6 @@ public interface RankingService {
     Map<String, Integer> findRankingsFor(String subject);
 
     Person findBestPersonFor(String skill);
+
+    //Ranking findRanking(Session session, String subject, String observer, String skill);
 }

@@ -29,16 +29,26 @@ public class PersonTest {
             Person person = new Person();
             person.setName("J. C. Smell");
 
-            Long personId = (Long) session.save(person);
-            assertNotNull(personId, "Person not saved correctly");
-            System.out.println("personId = " + personId);
+//            Long personId = (Long) session.save(person);
+//            assertNotNull(personId, "Person not saved correctly");
+//            System.out.println("personId = " + personId);
+            session.persist(person);
 
+            System.out.println("person = " + person);
             tx.commit();
 
+            tx = session.beginTransaction();
             Query<Person> query = session.createQuery("from Person p where p.name=:name", Person.class);
             query.setParameter("name", "J. C. Smell");
             person = query.uniqueResult();
-            System.out.println("person = " + person);
+            System.out.println("person2 = " + person);
+            assertNotNull(person, "Person not saved correctly");
+
+            person.setName("Nacho Martin");
+            tx.commit();
+
+            person = session.find(Person.class, 1);
+            System.out.println("person3 = " + person);
             assertNotNull(person, "Person not saved correctly");
 
         }
