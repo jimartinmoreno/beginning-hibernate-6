@@ -13,3 +13,4 @@
 /chapter12/target/
 /chapter13/target/
 */*.ini
+/.idea/

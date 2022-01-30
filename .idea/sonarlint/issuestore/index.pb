@@ -367,9 +367,6 @@ k
 ;chapter03/src/test/java/chapter03/hibernate/PersonTest.java,9\0\90c3a1a645d0cd6c2f9cb1e503e93d4fb4b74a85
 l
 <chapter03/src/test/java/chapter03/hibernate/RankingTest.java,e\6\e6c0235d44b0002c8dcdb33b5689dab65ea67afd
-:
-
-.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 g
 7util/src/test/java/com/autumncode/util/model/Thing.java,e\f\ef5439e69714af0df0f062d34230de29cb9e31c2
 g
