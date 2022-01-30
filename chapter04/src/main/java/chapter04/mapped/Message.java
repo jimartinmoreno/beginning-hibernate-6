@@ -1,4 +1,3 @@
-//tag::preamble[]
 package chapter04.mapped;
 
 import javax.persistence.*;
@@ -21,7 +20,6 @@ public class Message {
     public Message(String content) {
         setContent(content);
     }
-    //end::preamble[]
 
     public Long getId() {
         return id;
@@ -47,7 +45,6 @@ public class Message {
         this.email = email;
     }
 
-    //tag::postlude[]
     @Override
     public String toString() {
         // note use of email.subject because otherwise properly constructed
@@ -61,4 +58,4 @@ public class Message {
         );
     }
 }
-//end::postlude[]
+

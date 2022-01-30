@@ -14,14 +14,11 @@ import static org.testng.Assert.*;
 public class JPASessionUtilTest {
     @Test
     public void getEntityManager() {
-        EntityManager em = JPASessionUtil
-                .getEntityManager("utiljpa");
+        EntityManager em = JPASessionUtil.getEntityManager("utiljpa");
         em.close();
     }
 
-    @Test(
-            expectedExceptions = {javax.persistence.PersistenceException.class}
-    )
+    @Test(expectedExceptions = {javax.persistence.PersistenceException.class})
     public void nonexistentEntityManagerName() {
         JPASessionUtil.getEntityManager("nonexistent");
         fail("We shouldn't be able to acquire an EntityManager here");
@@ -33,9 +30,7 @@ public class JPASessionUtilTest {
         session.close();
     }
 
-    @Test(
-            expectedExceptions = {javax.persistence.PersistenceException.class}
-    )
+    @Test(expectedExceptions = {javax.persistence.PersistenceException.class})
     public void nonexistentSessionName() {
         JPASessionUtil.getSession("nonexistent");
         fail("We shouldn't be able to acquire a Session here");
@@ -53,9 +48,7 @@ public class JPASessionUtilTest {
 
         em = JPASessionUtil.getEntityManager("utiljpa");
         em.getTransaction().begin();
-        TypedQuery<Thing> q = em.createQuery(
-                "from Thing t where t.name=:name",
-                Thing.class);
+        TypedQuery<Thing> q = em.createQuery("from Thing t where t.name=:name", Thing.class);
         q.setParameter("name", "Thing 1");
         Thing result = q.getSingleResult();
         assertNotNull(result);
@@ -78,10 +71,7 @@ public class JPASessionUtilTest {
 
         try (Session session = JPASessionUtil.getSession("utiljpa")) {
             Transaction tx = session.beginTransaction();
-            Query<Thing> q =
-                    session.createQuery(
-                            "from Thing t where t.name=:name",
-                            Thing.class);
+            Query<Thing> q = session.createQuery("from Thing t where t.name=:name", Thing.class);
             q.setParameter("name", "Thing 2");
             Thing result = q.uniqueResult();
             assertNotNull(result);

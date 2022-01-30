@@ -10,6 +10,7 @@ public class Email {
     Long id;
     @Column
     String subject;
+
     @OneToOne(mappedBy = "email")
     Message message;
 
@@ -19,7 +20,6 @@ public class Email {
     public Email(String subject) {
         setSubject(subject);
     }
-    //end::preamble[]
 
     public Long getId() {
         return id;
@@ -45,7 +45,7 @@ public class Email {
         this.message = message;
     }
 
-    //tag::postlude[]
+
     @Override
     public String toString() {
         // note use of message.content because otherwise properly constructed
@@ -59,5 +59,4 @@ public class Email {
         );
     }
 }
-//end::postlude[]
 

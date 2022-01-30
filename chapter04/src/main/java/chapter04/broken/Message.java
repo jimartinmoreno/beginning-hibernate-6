@@ -1,4 +1,3 @@
-//tag::preamble[]
 package chapter04.broken;
 
 import javax.persistence.*;
@@ -21,7 +20,7 @@ public class Message {
     public Message(String content) {
         setContent(content);
     }
-    //end::preamble[]
+
 
     public Long getId() {
         return id;
@@ -47,18 +46,13 @@ public class Message {
         this.email = email;
     }
 
-    //tag::postlude[]
     @Override
     public String toString() {
         // note use of email.subject because otherwise properly constructed
         // relationships would cause an endless loop that never ends
         // and therefore runs endlessly.
-        return String.format(
-                "Message{id=%d, content='%s', email.subject='%s'}",
-                id,
-                content,
-                (email != null ? email.getSubject() : "null")
-        );
+        return String.format("Message{id=%d, content='%s', email.subject='%s'}", id,
+                content, (email != null ? email.getSubject() : "null"));
     }
 }
 //end::postlude[]

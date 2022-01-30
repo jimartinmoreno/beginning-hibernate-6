@@ -1,4 +1,3 @@
-//tag::preamble[]
 package chapter04.model;
 
 import javax.persistence.*;
@@ -16,7 +15,6 @@ public class SimpleObject {
     public SimpleObject() {
     }
 
-    //end::preamble[]
     public Long getId() {
         return id;
     }
@@ -50,7 +48,6 @@ public class SimpleObject {
                 '}';
     }
 
-    //tag::postlude[]
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,4 +77,3 @@ public class SimpleObject {
         return result;
     }
 }
-//end::postlude[]

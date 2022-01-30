@@ -40,7 +40,6 @@ public class SessionUtil {
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
         factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
     }
-    //end::preamble[]
 
     public static void doWithSession(Consumer<Session> command) {
         try (Session session = getSession()) {

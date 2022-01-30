@@ -19,9 +19,7 @@ public class SaveOrUpdateTest {
         try (Session session = SessionUtil.getSession()) {
             Transaction tx = session.beginTransaction();
             // this only works for simple objects
-            session
-                    .createQuery("delete from SimpleObject")
-                    .executeUpdate();
+            session.createQuery("delete from SimpleObject").executeUpdate();
             tx.commit();
         }
 
@@ -46,21 +44,17 @@ public class SaveOrUpdateTest {
 
             obj.setValue(12L);
 
-            // if the key didn't exist in the database,
-            // it would after this call.
+            // if the key didn't exist in the database it would after this call.
             session.saveOrUpdate(obj);
 
             tx.commit();
         }
 
-        // saveOrUpdate() will update a row in the database
-        // if one matches. This is what one usually expects.
+        // saveOrUpdate() will update a row in the database if one matches. This is what one usually expects.
         assertEquals(id, obj.getId());
 
         try (Session session = SessionUtil.getSession()) {
-            List<SimpleObject> objects = session
-                    .createQuery("from SimpleObject", SimpleObject.class)
-                    .list();
+            List<SimpleObject> objects = session.createQuery("from SimpleObject", SimpleObject.class).list();
 
             assertEquals(objects.size(), 1);
         }
