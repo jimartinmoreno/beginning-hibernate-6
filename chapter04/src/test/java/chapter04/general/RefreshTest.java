@@ -14,14 +14,11 @@ public class RefreshTest {
             Transaction tx = session.beginTransaction();
 
             SimpleObject simpleObject = new SimpleObject();
-
             simpleObject.setKey("testMerge");
             simpleObject.setValue(1L);
 
             session.save(simpleObject);
-
             id = simpleObject.getId();
-
             tx.commit();
         }
 
@@ -35,7 +32,6 @@ public class RefreshTest {
             // so no TX is necessary unless an update occurs later
             session.refresh(so);
         }
-
         ValidateSimpleObject.validate(id, 1L, "testMerge");
     }
 }

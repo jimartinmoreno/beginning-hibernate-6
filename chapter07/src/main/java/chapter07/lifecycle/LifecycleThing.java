@@ -1,16 +1,16 @@
 package chapter07.lifecycle;
 
 import lombok.Data;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.util.BitSet;
 
 @Entity
 @Data
+@Slf4j
 public class LifecycleThing {
-    static Logger logger = LoggerFactory.getLogger(LifecycleThing.class);
+
     static BitSet lifecycleCalls = new BitSet();
 
     @Id
@@ -56,7 +56,6 @@ public class LifecycleThing {
 
     private void log(String method, int index) {
         lifecycleCalls.set(index, true);
-        logger.info("{}: {} {}", method,
-                this.getClass().getSimpleName(), this);
+        log.info("{}: {} {}", method, this.getClass().getSimpleName(), this);
     }
 }

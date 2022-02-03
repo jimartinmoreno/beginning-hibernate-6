@@ -45,20 +45,21 @@ public class LifecycleTest {
         session.close();
     }
 
-    public void testPersistence(String value,
-                                FailingEntity.FailureStatus status) {
+    public void testPersistence(String value, FailingEntity.FailureStatus status) {
         Session session = JPASessionUtil.getSession("chapter07");
         Transaction tx = session.beginTransaction();
 
         FailingEntity failingEntity = new FailingEntity();
         failingEntity.setValue(value);
         failingEntity.setFailureStatus(status);
+
         try {
             session.persist(failingEntity);
             Integer id = failingEntity.getId();
             tx.commit();
             session.close();
             System.out.println(failingEntity);
+
             session = JPASessionUtil.getSession("chapter07");
             tx = session.beginTransaction();
             FailingEntity fe = session.load(FailingEntity.class, id);
@@ -91,9 +92,7 @@ public class LifecycleTest {
 
         session = JPASessionUtil.getSession("chapter07");
         tx = session.beginTransaction();
-        FailingEntity e = session
-                .byId(FailingEntity.class)
-                .load(failingEntity.getId());
+        FailingEntity e = session.byId(FailingEntity.class).load(failingEntity.getId());
         System.out.println(e);
         tx.commit();
         session.close();

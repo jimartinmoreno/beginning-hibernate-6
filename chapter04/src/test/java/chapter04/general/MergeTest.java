@@ -19,9 +19,7 @@ public class MergeTest {
             simpleObject.setValue(1L);
 
             session.save(simpleObject);
-
             id = simpleObject.getId();
-
             tx.commit();
         }
 
@@ -33,12 +31,9 @@ public class MergeTest {
         try (Session session = SessionUtil.getSession()) {
             // merge is potentially an update, so we need a TX
             Transaction tx = session.beginTransaction();
-
             session.merge(so);
-
             tx.commit();
         }
-
         ValidateSimpleObject.validate(id, 2L, "testMerge");
     }
 }

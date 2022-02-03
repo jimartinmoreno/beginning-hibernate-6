@@ -11,6 +11,7 @@ public class Library {
     Long id;
     @Column
     String name;
+
     @OneToMany(orphanRemoval = true, mappedBy = "library")
     List<Book> books = new ArrayList<>();
 

@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.testng.annotations.Test;
 
+import java.util.function.Supplier;
+
 import static org.testng.Assert.*;
 
 public class SaveLoadTest {
@@ -30,8 +32,12 @@ public class SaveLoadTest {
         }
 
         try (Session session = SessionUtil.getSession()) {
+
             // we're loading the object by id
             SimpleObject o2 = session.load(SimpleObject.class, id);
+
+            System.out.println("EntityName = " + session.getEntityName(o2));
+
             assertEquals(o2.getKey(), "sl");
             assertNotNull(o2.getValue());
             assertEquals(o2.getValue().longValue(), 10L);

@@ -8,10 +8,8 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
-@ToString
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode
 public class FailingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,7 +17,7 @@ public class FailingEntity {
     FailureStatus failureStatus = null;
     String value;
 
-    static enum FailureStatus {
+    enum FailureStatus {
         NOFAILURE, PREPERSIST, POSTPERSIST, POSTLOAD
     }
 

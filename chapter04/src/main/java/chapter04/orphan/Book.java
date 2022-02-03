@@ -9,6 +9,7 @@ public class Book {
     Long id;
     @Column
     String title;
+
     @ManyToOne
     Library library;
 

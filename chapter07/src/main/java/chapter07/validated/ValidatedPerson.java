@@ -16,14 +16,17 @@ public class ValidatedPerson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
     @Column
     @NotNull
     @Size(min = 2, max = 60)
     String fname;
+
     @Column
     @NotNull
     @Size(min = 2, max = 60)
     String lname;
+
     @Column
     @Min(value = 13)
     Integer age;

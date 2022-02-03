@@ -3,10 +3,7 @@ package chapter06.twotables;
 import javax.persistence.*;
 
 @Entity
-@Table(
-        name = "customer",
-        uniqueConstraints = {@UniqueConstraint(columnNames = "name")}
-)
+@Table(name = "customer", uniqueConstraints = {@UniqueConstraint(columnNames = "name")})
 @SecondaryTable(name = "customer_details")
 public class Customer {
     @Id

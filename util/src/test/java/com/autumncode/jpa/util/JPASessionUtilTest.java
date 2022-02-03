@@ -40,19 +40,24 @@ public class JPASessionUtilTest {
     public void testEntityManager() {
         EntityManager em = JPASessionUtil.getEntityManager("utiljpa");
         em.getTransaction().begin();
+
         Thing t = new Thing();
         t.setName("Thing 1");
+
         em.persist(t);
         em.getTransaction().commit();
         em.close();
 
         em = JPASessionUtil.getEntityManager("utiljpa");
         em.getTransaction().begin();
+
         TypedQuery<Thing> q = em.createQuery("from Thing t where t.name=:name", Thing.class);
         q.setParameter("name", "Thing 1");
         Thing result = q.getSingleResult();
+
         assertNotNull(result);
         assertEquals(result, t);
+
         em.remove(result);
         em.getTransaction().commit();
         em.close();

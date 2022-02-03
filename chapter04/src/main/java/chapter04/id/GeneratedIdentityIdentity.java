@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 @Entity
 public class GeneratedIdentityIdentity {
+    // Indicates that the persistence provider must assign primary keys for the entity
+    // using a database identity column.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

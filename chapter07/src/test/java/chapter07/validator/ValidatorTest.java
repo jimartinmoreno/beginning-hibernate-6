@@ -42,35 +42,24 @@ public class ValidatorTest {
 
     @Test
     public void createValidPerson() {
-        persist(ValidatedPerson.builder()
-                .age(15)
-                .fname("Johnny")
-                .lname("McYoungster").build());
+        persist(ValidatedPerson.builder().age(15).fname("Johnny").lname("McYoungster").build());
     }
 
     @Test(expectedExceptions = ConstraintViolationException.class)
     public void createValidatedUnderagePerson() {
-        persist(ValidatedPerson.builder()
-                .age(12)
-                .fname("Johnny")
-                .lname("McYoungster").build());
+        persist(ValidatedPerson.builder().age(12).fname("Johnny").lname("McYoungster").build());
         fail("Should have failed validation");
     }
 
     @Test(expectedExceptions = ConstraintViolationException.class)
     public void createValidatedPoorFNamePerson2() {
-        persist(ValidatedPerson.builder()
-                .age(14)
-                .fname("J")
-                .lname("McYoungster2").build());
+        persist(ValidatedPerson.builder().age(14).fname("J").lname("McYoungster2").build());
         fail("Should have failed validation");
     }
 
     @Test(expectedExceptions = ConstraintViolationException.class)
     public void createValidatedNoFNamePerson() {
-        persist(ValidatedPerson.builder()
-                .age(14)
-                .lname("McYoungster2").build());
+        persist(ValidatedPerson.builder().age(14).lname("McYoungster2").build());
         fail("Should have failed validation");
     }
 

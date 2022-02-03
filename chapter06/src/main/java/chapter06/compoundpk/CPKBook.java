@@ -1,12 +1,13 @@
 package chapter06.compoundpk;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
 public class CPKBook {
-    @Id
+    @EmbeddedId
     ISBN id;
     @Column
     String name;
