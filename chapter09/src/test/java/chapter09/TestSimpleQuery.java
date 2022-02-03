@@ -11,9 +11,7 @@ import static org.testng.Assert.assertEquals;
 public class TestSimpleQuery extends TestBase {
     @Test
     public void testSimpleQuery() {
-        Query<Product> query = session.createQuery(
-                "from Product",
-                Product.class);
+        Query<Product> query = session.createQuery("from Product", Product.class);
 
         query.setComment("This is only a query for product");
         List<Product> products = query.list();

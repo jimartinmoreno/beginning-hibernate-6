@@ -59,7 +59,6 @@ public class SessionUtil {
             Transaction tx = null;
             try {
                 tx = session.beginTransaction();
-
                 return command.apply(session);
             } catch (Exception e) {
                 throw new RuntimeException(e);

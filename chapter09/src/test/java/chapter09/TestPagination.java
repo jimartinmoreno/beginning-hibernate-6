@@ -30,17 +30,13 @@ public class TestPagination {
         }
 
         try (Session session = SessionUtil.getSession()) {
-            Query<String> query = session.createQuery(
-                    "select s.name from Supplier s order by s.name",
-                    String.class);
+            Query<String> query = session.createQuery("select s.name from Supplier s order by s.name", String.class);
             query.setFirstResult(4);
             query.setMaxResults(4);
             List<String> suppliers = query.list();
-            String list = suppliers
-                    .stream()
-                    .collect(Collectors.joining(","));
-            assertEquals(list,
-                    "supplier 04,supplier 05,supplier 06,supplier 07");
+            // String list = suppliers.stream().collect(Collectors.joining(","));
+            String list = String.join(",", suppliers);
+            assertEquals(list, "supplier 04,supplier 05,supplier 06,supplier 07");
         }
     }
 }

@@ -19,19 +19,14 @@ public class TestBase {
             Transaction tx = session.beginTransaction();
 
             Supplier supplier = new Supplier("Hardware, Inc.");
-            supplier.getProducts().add(
-                    new Product(supplier, "Optical Wheel Mouse", "Mouse", 5.00));
-            supplier.getProducts().add(
-                    new Product(supplier, "Trackball Mouse", "Mouse", 22.00));
+            supplier.getProducts().add(new Product(supplier, "Optical Wheel Mouse", "Mouse", 5.00));
+            supplier.getProducts().add(new Product(supplier, "Trackball Mouse", "Mouse", 22.00));
             session.save(supplier);
 
             supplier = new Supplier("Supplier 2");
-            supplier.getProducts().add(
-                    new Software(supplier, "SuperDetect", "Antivirus", 14.95, "1.0"));
-            supplier.getProducts().add(
-                    new Software(supplier, "Wildcat", "Browser", 19.95, "2.2"));
-            supplier.getProducts().add(
-                    new Product(supplier, "AxeGrinder", "Gaming Mouse", 42.00));
+            supplier.getProducts().add(new Software(supplier, "SuperDetect", "Antivirus", 14.95, "1.0"));
+            supplier.getProducts().add(new Software(supplier, "Wildcat", "Browser", 19.95, "2.2"));
+            supplier.getProducts().add(new Product(supplier, "AxeGrinder", "Gaming Mouse", 42.00));
 
             session.save(supplier);
             tx.commit();

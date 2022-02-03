@@ -20,20 +20,14 @@ class ProductAndSupplier {
 
     @Override
     public String toString() {
-        return "ProductAndSupplier{" +
-                "p=" + p +
-                ",\n   s=" + s +
-                '}';
+        return "ProductAndSupplier{" + "p=" + p + ",\n   s=" + s + '}';
     }
 }
 
 public class TestJoinObject extends TestBase {
     @Test
     public void testJoinObject() {
-        Query<ProductAndSupplier> query = session.createQuery(
-                "select new chapter09.ProductAndSupplier(p,s) " +
-                        "from Product p, Supplier s where p.supplier=s",
-                ProductAndSupplier.class);
+        Query<ProductAndSupplier> query = session.createQuery("select new chapter09.ProductAndSupplier(p,s) from Product p, Supplier s where p.supplier=s", ProductAndSupplier.class);
         List<ProductAndSupplier> suppliers = query.list();
         for (ProductAndSupplier o : suppliers) {
             System.out.println(o);
